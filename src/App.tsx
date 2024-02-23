@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import MyComponent from './components/MyComponent';
+import LeafletComponent from './components/LeafletComponent';
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
       <div>
         <h1>Test</h1>
         <div>
-          <MyComponent />
+          {/* <MyComponent /> */}
+          <LeafletComponent />
         </div>
       </div>
     </div>
