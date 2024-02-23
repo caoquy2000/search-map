@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react"
-import L, { LatLngTuple, Map, Marker as MarkerType } from 'leaflet'
+import L, { Map, Marker as MarkerType } from 'leaflet'
 import { Circle, MapContainer, Marker, TileLayer } from "react-leaflet"
 import { Geolocation } from "@capacitor/geolocation"
 
@@ -7,6 +7,7 @@ import icon from 'leaflet/dist/images/marker-icon.png'
 import iconShadow from 'leaflet/dist/images/marker-shadow.png'
 
 import 'leaflet/dist/leaflet.css'
+import MarkerCluster from "./MarkerCluster"
 
 let DefaultIcon = L.icon({
   iconUrl: icon,
@@ -17,6 +18,24 @@ let DefaultIcon = L.icon({
 L.Marker.prototype.options.icon = DefaultIcon
 
 const fillBlueOptions = { fillColor: 'blue' }
+const markers = [
+  {
+    position: { lng: -122.673447, lat: 45.5225581 },
+    text: "Voodoo Doughnut"
+  },
+  {
+    position: { lng: -122.6781446, lat: 45.5225512 },
+    text: "Bailey's Taproom"
+  },
+  {
+    position: { lng: -122.67535700000002, lat: 45.5192743 },
+    text: "Barista"
+  },
+  {
+    position: { lng: -122.65596570000001, lat: 45.5199148000001 },
+    text: "Base Camp Brewing"
+  }
+]
 
 const LeafletComponent = () => {
   const ref = useRef<Map>(null)
@@ -88,6 +107,7 @@ const LeafletComponent = () => {
           
         />
         <Circle center={center} pathOptions={fillBlueOptions} radius={200} />
+        <MarkerCluster markers={markers} />
       </MapContainer>
     </div>
   )
