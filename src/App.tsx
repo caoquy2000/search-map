@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import MyComponent from './components/MyComponent';
 
 function App() {
   return (
@@ -12,7 +13,12 @@ function App() {
         alignItems: 'center',
       }}
     >
-      <h1>Test</h1>
+      <div>
+        <h1>Test</h1>
+        <div>
+          <MyComponent />
+        </div>
+      </div>
     </div>
   );
 }
