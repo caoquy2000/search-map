@@ -23,20 +23,20 @@ L.Marker.prototype.options.icon = DefaultIcon
 const fillBlueOptions = { fillColor: 'blue' }
 const markers = [
   {
-    position: { lng: -122.673447, lat: 45.5225581 },
-    text: "Voodoo Doughnut"
+    position: { lng: 106.71182570857603, lat: 10.811046780805261 },
+    text: "10, Nguyen Xi"
   },
   {
-    position: { lng: -122.6781446, lat: 45.5225512 },
-    text: "Bailey's Taproom"
+    position: { lng: 106.700841, lat: 10.811481 },
+    text: "Phuong 12, Binh Thanh"
   },
   {
-    position: { lng: -122.67535700000002, lat: 45.5192743 },
-    text: "Barista"
+    position: { lng: 106.66663647266905, lat: 10.853182098948148 },
+    text: "904 D.Le Duc Tho, Phuong 15, Go Vap"
   },
   {
-    position: { lng: -122.65596570000001, lat: 45.5199148000001 },
-    text: "Base Camp Brewing"
+    position: { lng: 106.69354130003248, lat: 10.824979625230075 },
+    text: "366 Đ. Phan Văn Trị, Phường 5, Gò Vấp, Thành phố Hồ Chí Minh, Vietnam"
   }
 ]
 
@@ -87,7 +87,6 @@ const LeafletComponent = () => {
       <form>
         <label>Radius:</label>
         <input type="range" min="200" max="5000" onChange={hdrDragEndRadius}/>
-        <input type="submit"></input>
       </form>
       <div
         style={{
