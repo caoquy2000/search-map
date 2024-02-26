@@ -29,7 +29,7 @@ const MarkerCluster = ({ markers }: any) => {
     );
 
     map.addLayer(mcg);
-  }, [])
+  }, [markers])
 
   return null
 }

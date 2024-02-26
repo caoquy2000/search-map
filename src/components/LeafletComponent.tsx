@@ -11,6 +11,7 @@ import 'leaflet/dist/leaflet.css'
 import MarkerCluster from "./MarkerCluster"
 
 import './leaflet.css'
+import { isPointWithinRadius } from "geolib"
 
 let DefaultIcon = L.icon({
   iconUrl: icon,
@@ -45,6 +46,7 @@ const LeafletComponent = () => {
   const markerRef = useRef<MarkerType>(null)
   const [center, setCenter] = useState<L.LatLngExpression>({ lat: -3.745, lng: -38.523 })
   const [radius, setRadius] = useState<number>(200)
+  const [markercluster, setMarkerCluster] = useState<any[]>([])
 
   useEffect(() => {
     (async () => {
@@ -78,7 +80,17 @@ const LeafletComponent = () => {
     })()
   }, [])
 
-  const hdrDragEndRadius = debounce((ev: React.ChangeEvent<HTMLInputElement>) => {
+  useEffect(() => {
+    const markerCs: any[] = []
+    markers.map(m => {
+      if (isPointWithinRadius(m.position, center, radius)) {
+        markerCs.push(m)
+      }
+    })
+    setMarkerCluster(markerCs)
+  }, [center, radius])
+
+  const hdrChangeRadius = debounce((ev: React.ChangeEvent<HTMLInputElement>) => {
     setRadius(Number(ev.target.value))
   }, 500)
 
@@ -86,7 +98,7 @@ const LeafletComponent = () => {
     <div>
       <form>
         <label>Radius:</label>
-        <input type="range" min="200" max="5000" onChange={hdrDragEndRadius}/>
+        <input type="range" min="200" max="5000" onChange={hdrChangeRadius}/>
       </form>
       <div
         style={{
@@ -118,7 +130,7 @@ const LeafletComponent = () => {
 
           />
           <Circle center={center} pathOptions={fillBlueOptions} radius={radius} />
-          <MarkerCluster markers={markers} />
+          <MarkerCluster markers={markercluster} />
         </MapContainer>
       </div>
     </div>
