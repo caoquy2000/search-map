@@ -1,0 +1,11 @@
+.marker-pin {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: blue;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  /* margin: -15px 0 0 -15px; */
+}
+

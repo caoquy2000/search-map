@@ -9,6 +9,8 @@ import iconShadow from 'leaflet/dist/images/marker-shadow.png'
 import 'leaflet/dist/leaflet.css'
 import MarkerCluster from "./MarkerCluster"
 
+import './leaflet.css'
+
 let DefaultIcon = L.icon({
   iconUrl: icon,
   shadowUrl: iconShadow,
@@ -40,7 +42,8 @@ const markers = [
 const LeafletComponent = () => {
   const ref = useRef<Map>(null)
   const markerRef = useRef<MarkerType>(null)
-  const [center, setCenter] = useState<L.LatLngExpression>({lat: -3.745, lng: -38.523})
+  const [center, setCenter] = useState<L.LatLngExpression>({ lat: -3.745, lng: -38.523 })
+  const [radius, setRadius] = useState<number>(200)
 
   useEffect(() => {
     (async () => {
@@ -51,7 +54,18 @@ const LeafletComponent = () => {
         lat: lat,
         lng: lng
       })
-      ref.current?.setView({lat: lat, lng: lng}, 10)
+      if (!ref.current) return
+
+      const pinMarker = L.divIcon({
+        className: 'custom-div-icon',
+        html: "<div class='marker-pin'></div>",
+        iconSize: [35, 46],
+        iconAnchor: [25, 35]
+      });
+
+      L.marker([lat, lng], { icon: pinMarker }).addTo(ref.current);
+
+      ref.current?.setView({ lat: lat, lng: lng }, 10)
       ref.current?.on('move', () => {
         if (!ref.current) return
         markerRef.current?.setLatLng(ref.current.getCenter())
@@ -99,14 +113,14 @@ const LeafletComponent = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" // TODO: use url from server
         />
-        <Marker 
+        <Marker
           ref={markerRef}
           draggable
           position={center}
-          // eventHandlers={eventHandlers}
-          
+        // eventHandlers={eventHandlers}
+
         />
-        <Circle center={center} pathOptions={fillBlueOptions} radius={200} />
+        <Circle center={center} pathOptions={fillBlueOptions} radius={radius} />
         <MarkerCluster markers={markers} />
       </MapContainer>
     </div>
