@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import L, { Map, Marker as MarkerType } from 'leaflet'
 import { Circle, MapContainer, Marker, TileLayer } from "react-leaflet"
 import { Geolocation } from "@capacitor/geolocation"
@@ -50,7 +50,7 @@ const LeafletComponent = () => {
 
   useEffect(() => {
     (async () => {
-      const coords = await Geolocation.getCurrentPosition()
+      const coords = await Geolocation.getCurrentPosition({enableHighAccuracy: true})
       const lat = coords.coords.latitude
       const lng = coords.coords.longitude
       setCenter({
